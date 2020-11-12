@@ -1,0 +1,15 @@
+body{
+  background-color: #dfe4ea !important;
+}
+
+.bg {
+  color: #f5f5f5;
+}
+
+header nav{
+  background-color: #1e3799 !important;
+}
+
+main{
+  overflow-y: scroll;
+}
