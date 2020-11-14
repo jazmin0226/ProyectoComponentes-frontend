@@ -49,7 +49,7 @@ class retrieveController extends listController{
     const currentUpdateData = this.getFormData();
     const newData = Object.assign(currentProduct, currentUpdateData);
 
-    this.service.updateData(`${this.entity}/${newData.id}`, newData).then(response => {
+    this.service.updateData(`${this.entity}/${newData._id}`, newData).then(response => {
       this.showSuccess("", "Se ha actualizado correctamente.");
       $('#modalId').modal('hide');
       this.fillData();
