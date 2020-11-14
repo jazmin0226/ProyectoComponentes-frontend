@@ -5,8 +5,8 @@ class registerController extends formController {
   registerData() {
     if (this.validateFormData()) {
       this.service.registerData(this.entity, this.getFormData()).then((response) => {
-        console.log(response);
-        this.showSuccess();
+        //console.log(response);
+        this.showSuccess('Registro correcto','Se registró correctamente');
       });
     } else {
       this.showAlert();
@@ -20,6 +20,6 @@ class registerController extends formController {
 const controller = new registerController();
 
 $(controller.eventBtn).on('click', () => {
-  console.log("HOLA");
+
   controller.registerData();
 });
