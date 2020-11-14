@@ -5,7 +5,7 @@ class registerController extends formController {
   registerData() {
     if (this.validateFormData()) {
       this.service.registerData(this.entity, this.getFormData()).then((response) => {
-        this.showSuccess("Registro correcto", "Se ha registrado correctamente.");
+        this.showSuccess("", "Se ha registrado correctamente.");
       });
     } else {
       this.showAlert();
