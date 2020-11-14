@@ -16,10 +16,15 @@ class listController extends formController{
 
       let elementTable = '<tr> <td>';
       let button;
+      
 
       for (const key in currentData) {
         if (currentData.hasOwnProperty(key)) {
-          const element = currentData[key];
+          let element = currentData[key]; 
+          if(key === '_id') {
+            element = i + 1;
+          }
+
           elementTable += `${element}</td><td>`;
           button = `<button type="button" class="btn btn-info editButton" data-id="${i}" data-toggle="modal" data-target="#modalId">Editar</button>`;
         }
