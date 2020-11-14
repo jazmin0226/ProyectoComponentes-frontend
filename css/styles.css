@@ -13,3 +13,7 @@ header nav{
 main{
   overflow-y: scroll;
 }
+
+.loadingSize { 
+  width: 5rem; height: 5rem; 
+}
