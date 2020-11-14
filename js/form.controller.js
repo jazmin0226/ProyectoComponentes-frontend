@@ -33,8 +33,8 @@ class formController {
 
 
   // Muestra retroalimentacion
-  showSuccess() {
-    swal("Registro correcto", "Datos registrados correctamente", "success");
+  showSuccess(tittle,msg) {
+    swal(tittle, msg, "success");
     this.form.reset();
   }
 }
