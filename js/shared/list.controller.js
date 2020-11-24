@@ -8,7 +8,7 @@ class listController extends formController{
     this.bodyTable.html('');
   }
 
-  fillTable(arrayData) {
+  fillTable(arrayData, typeBtn, btnMsg) {
     this.clearTable();
     
     for (let i = 0; i < arrayData.length; i++) {
@@ -26,7 +26,7 @@ class listController extends formController{
           }
 
           elementTable += `${element}</td><td>`;
-          button = `<button type="button" class="btn btn-info editButton" data-id="${i}" data-toggle="modal" data-target="#modalId">Editar</button>`;
+          button = `<button type="button" class="btn btn-info ${typeBtn}" data-id="${i}" data-toggle="modal" data-target="#modalId">${btnMsg}</button>`;
         }
       }
       elementTable += `${button}</td></tr>`;
