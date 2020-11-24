@@ -12,7 +12,7 @@ class retrieveController extends listController{
   fillData() {
     this.service.getData(this.entity).then((response) => {
       this.currentProducts = response.newData;
-      this.fillTable(this.currentProducts);
+      this.fillTable(this.currentProducts, "editButton", "Editar");
       this.addEditEvent();
       this.hideLoading();
     });

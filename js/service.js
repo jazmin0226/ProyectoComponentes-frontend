@@ -1,6 +1,6 @@
 class service {
   request = $.ajax;
-  baseUrl = 'https://proyectofinalcomp.azurewebsites.net/'
+  baseUrl = 'http://localhost:3000/'; //'https://proyectofinalcomp.azurewebsites.net/'
 
   getData(entity){
     return new Promise((resolve, reject) => {
