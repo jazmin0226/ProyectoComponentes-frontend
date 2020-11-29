@@ -3,6 +3,8 @@ class retrieveController extends listController{
   entity = 'products'; //Entidad para el SERVICIO
   currentProducts;
   currentIndexProduct;
+  authService = authService;
+  logOut = $('#logout')
 
   constructor (){
     super();
@@ -31,3 +33,7 @@ class retrieveController extends listController{
 }
 
 const controller = new retrieveController();
+
+$(controller.logOut).on('click', () => {
+  controller.authService.logOut();
+});
