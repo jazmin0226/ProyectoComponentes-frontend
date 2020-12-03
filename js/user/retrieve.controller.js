@@ -13,7 +13,7 @@ class retrieveController extends listController{
   fillData(){
     this.service.getData(this.entity).then((response) => {
       this.currentUsers = response.newData;
-      this.fillTable(this.currentUsers);
+      this.fillTable(this.currentUsers, "editButton", "Editar");
       this.addEditEvent();
     });
   }
@@ -45,7 +45,26 @@ class retrieveController extends listController{
     mail.value = currentUser.mail;
     address.value = currentUser.address;
 
+    $('#btnUpdate').on('click',()=>{
+      this.updateData();
 
+    });
+
+
+
+  }
+
+  updateData(){
+
+    const currentUser = this.currentUsers[this.currentIndexUser];
+    const currentUpdateData = this.getFormData();
+    const newData = Object.assign(currentUser,currentUpdateData);
+
+    this.service.updateData(`${this.entity}/${newData.id}`, newData).then(response => {
+      this.showSuccess("", "Se ha actualizado correctamente.");
+      $('#modalId').modal('hide');
+      this.fillData();
+    });
   }
 }
   
