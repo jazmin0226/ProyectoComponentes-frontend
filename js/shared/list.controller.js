@@ -10,7 +10,6 @@ class listController extends formController{
 
   fillTable(arrayData, typeBtn, btnMsg) {
     this.clearTable();
-    
     for (let i = 0; i < arrayData.length; i++) {
       const currentData = arrayData[i];
 

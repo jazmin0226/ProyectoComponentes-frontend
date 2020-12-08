@@ -3,10 +3,8 @@ class retrieveController extends listController{
   entity = 'products'; //Entidad para el SERVICIO
   currentProducts;
   currentIndexProduct;
-  authService = authService;
-  logOut = $('#logout')
 
-  constructor (){
+  constructor() {
     super();
     this.fillData();
   }
@@ -60,12 +58,3 @@ class retrieveController extends listController{
 }
 
 const controller = new retrieveController();
-
-
-$(window).on('load', () => {
-  controller.authService.validateUserActive();
-})
-
-$(controller.logOut).on('click', () => {
-  controller.authService.logOut();
-});

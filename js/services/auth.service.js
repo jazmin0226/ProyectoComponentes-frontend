@@ -1,10 +1,13 @@
 class AuthService {
   request = $.ajax;
-  baseUrl = 'http://localhost:3000/'; //'https://proyectofinalcomp.azurewebsites.net/'
   #currentUserActive;
 
   get userRole() {
     return Number(this.#currentUserActive.user.role.id);
+  }
+
+  get currentUserId(){
+    return this.#currentUserActive.user._id;
   }
 
   validateUserActive() {

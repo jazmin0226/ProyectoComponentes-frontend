@@ -17,3 +17,12 @@ main{
 .loadingSize { 
   width: 5rem; height: 5rem; 
 }
+
+input[type=number]::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+}
+
+#quantity {
+  text-align: center;
+  
+}
