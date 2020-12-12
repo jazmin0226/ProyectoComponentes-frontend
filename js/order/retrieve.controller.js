@@ -4,6 +4,9 @@ class retrieveController extends listController {
   currentOrders;
   currentIndexProduct;
   newCurrentOrders = [];
+  modalBtn = $('#send');
+  currentOrderId= '';
+  currenteOrderState = '';
   
 
   constructor() {
@@ -12,6 +15,7 @@ class retrieveController extends listController {
   }
 
   fillData() {
+    this.newCurrentOrders = [];
     this.service.getData(this.entity).then((response) => {
       this.currentOrders = response.newData;
       
@@ -44,11 +48,12 @@ class retrieveController extends listController {
   showModal(elementId){
     const index = Number(elementId);
     const currentOrder = this.currentOrders[index];
-    const products = this.currentOrders[index].products;
+    this.currentOrderId = currentOrder._id;
+    this.currenteOrderState = currentOrder.state;
+    const products = currentOrder.products;
     const newProductsList = [];
 
     for (const product of products) {
-      console.log(product);
       const productData = {
         _id: product.productId._id,
         name: product.productId.name,
@@ -60,15 +65,14 @@ class retrieveController extends listController {
       newProductsList.push(productData);
     }
       
-    this.fillModalTable(newProductsList, "", "")
-
-    console.log(products);
+    this.fillModalTable(newProductsList);
   }
 
-  fillModalTable(arrayData, typeBtn, btnMsg) {
+  fillModalTable(arrayData) {
     const table = $('#tableModalId')[0];
     const bodyTable = $('#bodyTableModal');
     
+    bodyTable.empty();
 
     for (let i = 0; i < arrayData.length; i++) {
       const currentData = arrayData[i];
@@ -87,10 +91,30 @@ class retrieveController extends listController {
           elementTable += `${element}</td><td>`;
         }
       }
-      
       bodyTable.append(elementTable);
     }
+  }
+
+  changeState(){
+    const body = {state: ""};
+    switch(this.currenteOrderState){
+      case "Pendiente":
+        body.state = "Enviado";
+      break;
+      case "Enviado":
+        body.state = "Entregado";
+      break;
+    }
+    this.service.updateData(`${this.entity}/updatestate/${this.currentOrderId}`, body).then((response) => {
+      
+      this.fillData();
+      this.showSuccess("", "Se ha actualizado correctamente.");
+    });
   }
 }
 
 const controller = new retrieveController();
+
+$(controller.modalBtn).on('click', () => {
+  controller.changeState();
+});

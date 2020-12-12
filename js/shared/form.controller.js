@@ -35,6 +35,8 @@ class formController {
   // Muestra retroalimentacion
   showSuccess(tittle,msg) {
     swal(tittle, msg, "success");
-    this.form.reset();
+    if(this.form){
+      this.form.reset();
+    }
   }
 }

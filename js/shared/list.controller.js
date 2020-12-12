@@ -5,11 +5,12 @@ class listController extends formController{
   loadingElement = $('#loading');
 
   clearTable(){
-    this.bodyTable.html('');
+    this.bodyTable[0].innerHTML  = "";
   }
 
   fillTable(arrayData, typeBtn, btnMsg) {
     this.clearTable();
+    debugger
     for (let i = 0; i < arrayData.length; i++) {
       const currentData = arrayData[i];
 
