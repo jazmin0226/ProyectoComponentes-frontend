@@ -1,4 +1,4 @@
-class retrieveController extends listController {
+class registerController extends listController {
   service = new service();
   entity = 'orders'; //Entidad para el SERVICIO
   currentProducts; //todos los productos
@@ -77,7 +77,7 @@ class retrieveController extends listController {
   }
 }
 
-const controller = new retrieveController();
+const controller = new registerController();
 
 $(controller.btnQuantity).on('click', function () {
   controller.validateQuantity(this.dataset.event);

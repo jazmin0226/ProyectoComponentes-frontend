@@ -21,7 +21,7 @@
       <div class="list-group list-group-flush mt-5">
         <a href="#" class="list-group-item list-group-item-action">Dashboard</a>
         <a href="#" class="list-group-item list-group-item-action" id="newOrder">Nuevo pedido</a>
-        <a href="#" class="list-group-item list-group-item-action" id="userOrders">Mis pedidos</a>
+        <a href="#" class="list-group-item list-group-item-action">Mis pedidos</a>
       </div>
     </div>
     <!-- Sidebar -->
@@ -56,7 +56,7 @@
         <div class="card mx-auto col-10 rounded">
 
           <div class="mt-3">
-            <h2 class="text-center">Pedidos</h2>
+            <h2 class="text-center">Mis pedidos</h2>
           </div>
 
           <div class="spinner-border mx-auto my-3 loadingSize" role="status" id="loading">
@@ -102,9 +102,8 @@
                     </tbody>
                   </table>
                 </div>
-                <div class="modal-footer">
+                <div class="modal-footer" id=mfooter>
                   <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-                  <button type="button" class="btn btn-info" data-dismiss="modal" id="send">Actualizar pedido</button>
                 </div>
               </div>
             </div>
@@ -125,7 +124,7 @@
   <script src="./../../js/shared/form.controller.js"></script>
   <script src="./../../js/shared/list.controller.js"></script>
   <script src="./../../js/shared/general.controller.js"></script>
-  <script src="./../../js/order/retrieve.controller.js"></script>
+  <script src="./../../js/order/retrieveByUser.controller.js"></script>
 
 </body>
 
