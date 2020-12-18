@@ -5,11 +5,14 @@ class ordenesCliente {
     newListPendingOrders = [];
     newListCreatedOrders = [];
     newListSentOrders = [];
+    newListDeliveredOrders = [];
 
     constructor() {
         setTimeout(() => {
             this.getOrderData();
             this.getOrderDataCreated();
+            this.getOrderDataSent();
+            this.getOrderDataDelivered();
         }, 2000);
     }
 
@@ -61,6 +64,24 @@ class ordenesCliente {
                 this.newListSentOrders.push(orderData);
             };
             this.fillDataSent();
+        });
+    }
+
+
+    getOrderDataDelivered() {
+        this.service.getData(`${this.entity}/statedelivered/5fc4492384afd02ab48d5029`).then((response) => {
+            this.pendingOrders = response.newData;
+
+            for (const order of this.pendingOrders) {
+                const orderData = {
+                    _id: order._id,
+                    id: order.user.id,
+                    state: order.state
+                };
+
+                this.newListDeliveredOrders.push(orderData);
+            };
+            this.fillDataDelivered();
         });
     }
 
@@ -119,6 +140,30 @@ class ordenesCliente {
 
         for (let i = 0; i <  this.newListSentOrders.length; i++) {
             const currentData =  this.newListSentOrders[i];
+
+            let elementTable = '<tr> <td>';
+
+            for (const key in currentData) {
+                if (currentData.hasOwnProperty(key)) {
+                    let element = currentData[key];
+                    if (key === '_id') {
+                        element = i + 1;
+                    }
+
+                    elementTable += `${element}</td><td>`;
+                }
+            }
+            bodyTable.append(elementTable);
+        }
+    }
+
+    fillDataDelivered() {
+        const bodyTable = $('#bodyTableDelivered');
+        bodyTable.empty();
+
+
+        for (let i = 0; i <  this.newListDeliveredOrders.length; i++) {
+            const currentData =  this.newListDeliveredOrders[i];
 
             let elementTable = '<tr> <td>';
 
