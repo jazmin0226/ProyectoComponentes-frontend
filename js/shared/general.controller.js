@@ -6,7 +6,9 @@ class GeneralController {
 
   validateView() {
     if(this.authService.userRole != 1){
-      location.href = '/views/orders/register.view.html';
+      if(!document.getElementById('retrieveByUser')){
+        location.href = '/views/orders/retrievebyuser.view.html';
+      }
     }
   }
 
@@ -29,7 +31,7 @@ $(generalController.logOut).on('click', () => {
 
 $(window).on('load', () => {
   generalController.authService.validateUserActive();
-  //generalController.validateView();
+  generalController.validateView();
 });
 
 

@@ -1,12 +1,13 @@
 class retrieveByUser extends listController {
-  entity= 'orders';
+  entity = 'orders';
   currentOrders;
   currentIndexProduct;
   newCurrentOrders = [];
   modalBtn = $('#send');
-  currentOrderId= '';
+  currentOrderId = '';
   currenteOrderState = '';
-  
+  productIndex = -1;
+
   constructor() {
     super();
     setTimeout(() => {
@@ -14,17 +15,43 @@ class retrieveByUser extends listController {
     }, 2000);
   }
 
+  get currentOrder(){
+    return this.currentOrders[this.productIndex];
+  }
+
+  get productsList() {
+    const productList = [];
+
+    for (const product of this.currentOrder.products) {
+      const productData = {
+        _id: product.productId._id,
+        name: product.productId.name,
+        color: product.productId.color,
+        description: product.productId.description,
+        quantity: product.quantity
+      };
+
+      productList.push(productData);
+    }
+    return productList;
+  }
+  
+
+  clearProductIndex() {
+    this.productIndex = -1;
+  }
+
   fillData() {
     this.newCurrentOrders = [];
 
     this.service.getData(`${this.entity}/${authService.currentUserId}`).then((response) => {
       this.currentOrders = response.newData;
-      
+
       for (const order of this.currentOrders) {
         const orderData = {
           _id: order._id,
           name: order.user.name,
-          id: order.user.id,
+          address: order.user.address,
           state: order.state
         };
 
@@ -34,6 +61,11 @@ class retrieveByUser extends listController {
       this.fillTable(this.newCurrentOrders, "btnMore", "Ver más");
       this.btnMore();
       this.hideLoading();
+
+      if(this.productIndex !== -1){
+        this.fillModalTable();
+        this.activeButtons();
+      } 
     });
   }
 
@@ -41,85 +73,101 @@ class retrieveByUser extends listController {
     const buttons = $('.btnMore');
     for (const button of buttons) {
       $(button).on('click', () => {
-        this.showModal(button.dataset.id);
+        this.productIndex = Number(button.dataset.id);
+        this.showModal();
       });
     }
   }
 
-  showModal(elementId){
-    const index = Number(elementId);
-    const currentOrder = this.currentOrders[index];
-    this.currentOrderId = currentOrder._id;
-    console.log(this.currentOrderId);
-    this.currenteOrderState = currentOrder.state;
-    const products = currentOrder.products;
-    const newProductsList = [];
-
-    for (const product of products) {
-      const productData = {
-        _id: product.productId._id,
-        name: product.productId.name,
-        color: product.productId.color,
-        description: product.productId.description,
-        quantity: product.quantity
-      };
-
-      newProductsList.push(productData);
-    }
-    this.fillModalTable(newProductsList, this.validateState());
+  showModal() {
+    this.currentOrderId = this.currentOrder._id;
+    this.currenteOrderState = this.currentOrder.state;
+    
+    this.fillModalTable();
+    this.updateOrder();
   }
 
-  validateState(){
-    if(this.currenteOrderState === "Creado"){
+  validateState() {
+    if (this.currenteOrderState === "Creado") {
       return true;
     }
   }
 
   updateOrder() {
-    if(this.validateState()){
+    if (this.validateState()) {
       const footer = $('#mfooter');
-      const button = `<button type="button" class="btn btn-info btnUpdateOrder" data-id="${this.currentOrderId}" id="btnUpdate">Modificar pedido</button>`;
-      footer.append(button);
+      const button = `<button type="button" class="btn btn-info btnUpdateOrder" id="btnUpdate">Modificar pedido</button>`;
+      const btnSend = `<button type="button" class="btn btn-success btnUpdateOrder" id="btnSend">Enviar pedido</button>`;
+
+      footer.prepend(button);
+      footer.prepend(btnSend);
 
       $('#btnUpdate').on('click', () => {
-        localStorage.setItem('currentOrder' , this.currentOrderId);
+        localStorage.setItem('currentOrder', this.currentOrderId);
         location.href = '/views/orders/register.view.html';
-      }); 
+      });
+
+      $('#btnSend').on('click', () => {
+        this.sendOrder();
+      });
     }
   }
 
-  fillModalTable(arrayData, state) {
-    const table = $('#tableModalId')[0];
-    const bodyTable = $('#bodyTableModal');
+  sendOrder() {
+    console.log(this.currentOrderId);
+    const updateBody = {
+      state: "Pendiente"
+    };
+    const emailBody = {
+      subject: "Confirmación",
+      email: 'guzmanmaria2775@gmail.com'
+    };
+    const promises = [
+      this.service.updateData(`${this.entity}/updatestate/${this.currentOrderId}`, updateBody),
+      this.service.registerData(`${this.entity}/${this.currentOrderId}`, emailBody)
+    ];
+
+    $('#btnUpdate').attr('disable', true);
+    $('#btnSend').attr('disable', true);
     
+    Promise.all(promises).then((response) => {
+      $('#modalId').modal('hide');
+      this.fillData();
+    });
+
+  }
+
+  fillModalTable() {
+    const bodyTable = $('#bodyTableModal');
+
     bodyTable.empty();
 
-    for (let i = 0; i < arrayData.length; i++) {
-      const currentData = arrayData[i];
+    for (let i = 0; i < this.productsList.length; i++) {
+      const currentData = this.productsList[i];
 
       let elementTable = '<tr> <td>';
       let button = '';
-      let editButton = ''; //para editar la cantidad. 
 
       for (const key in currentData) {
         if (currentData.hasOwnProperty(key)) {
-          let element = currentData[key]; 
-          if(key === '_id') {
+          let element = currentData[key];
+          if (key === '_id') {
             element = i + 1;
           }
-          
+
           elementTable += `${element}</td><td>`;
 
-          if(state === true){
-            button = `<button type="button" class="btn btn-info deleteButton" data-id="${currentData._id}" id="btnDelete">Eliminar</button>`;
+          if (this.validateState()) {
+            button = `<button type="button" class="btn btn-danger deleteButton" data-id=${currentData._id} id="btnDelete">Eliminar</button>`;
           }
         }
       }
       elementTable += `${button}</td></tr>`;
       bodyTable.append(elementTable);
     }
+    
     this.addDeleteEvent();
-    this.updateOrder();
+    
   }
 
   addDeleteEvent() {
@@ -131,20 +179,40 @@ class retrieveByUser extends listController {
     }
   }
 
-  deleteProductOrder(idProduct){
-    const body = {productId: idProduct};
+  deleteProductOrder(idProduct) {
+    const body = {
+      productId: idProduct
+    };
+
+    this.disableButtons();
     this.service.deleteData(`${this.entity}/delete/${this.currentOrderId}`, body).then((response) => {
-      console.log(response);
+      this.fillData();
+      
     });
+  }
+
+  disableButtons() {
+    $('.deleteButton').attr('disabled', true);
+    $('#btnUpdate').attr('disabled', true);
+    $('#btnSend').attr('disabled', true);
+  }
+
+  activeButtons(){
+    $('#btnUpdate').removeAttr('disabled');
+    $('#btnSend').removeAttr('disabled');
+  }
+
+
+  removeButtons() {
+    $('#btnUpdate').remove();
+    $('#btnSend').remove();
   }
 
 }
 
 const controller = new retrieveByUser();
 
-
-
 $('#modalId').on('hidden.bs.modal', () => {
-  $('#btnUpdate').remove();
-  $('#tableModalId').empty();
+  controller.removeButtons();
+  controller.clearProductIndex();
 });

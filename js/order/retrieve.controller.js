@@ -23,6 +23,7 @@ class retrieveController extends listController {
         const orderData = {
           _id: order._id,
           name: order.user.name,
+          address: order.user.address,
           id: order.user.id,
           state: order.state
         };
