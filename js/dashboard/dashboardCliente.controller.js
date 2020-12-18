@@ -4,6 +4,7 @@ class ordenesCliente {
     pendingOrders;
     newListPendingOrders = [];
     newListCreatedOrders = [];
+    newListSentOrders = [];
 
     constructor() {
         setTimeout(() => {
@@ -46,6 +47,23 @@ class ordenesCliente {
         });
     }
 
+    getOrderDataSent() {
+        this.service.getData(`${this.entity}/statesent/5fc4492384afd02ab48d5029`).then((response) => {
+            this.pendingOrders = response.newData;
+
+            for (const order of this.pendingOrders) {
+                const orderData = {
+                    _id: order._id,
+                    id: order.user.id,
+                    state: order.state
+                };
+
+                this.newListSentOrders.push(orderData);
+            };
+            this.fillDataSent();
+        });
+    }
+
     fillDataPending() {
         const bodyTable = $('#bodyTablePending');
         bodyTable.empty();
@@ -77,6 +95,30 @@ class ordenesCliente {
 
         for (let i = 0; i <  this.newListCreatedOrders.length; i++) {
             const currentData =  this.newListCreatedOrders[i];
+
+            let elementTable = '<tr> <td>';
+
+            for (const key in currentData) {
+                if (currentData.hasOwnProperty(key)) {
+                    let element = currentData[key];
+                    if (key === '_id') {
+                        element = i + 1;
+                    }
+
+                    elementTable += `${element}</td><td>`;
+                }
+            }
+            bodyTable.append(elementTable);
+        }
+    }
+
+    fillDataSent() {
+        const bodyTable = $('#bodyTableSent');
+        bodyTable.empty();
+
+
+        for (let i = 0; i <  this.newListSentOrders.length; i++) {
+            const currentData =  this.newListSentOrders[i];
 
             let elementTable = '<tr> <td>';
 
