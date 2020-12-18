@@ -50,8 +50,6 @@ class retrieveController extends listController{
 
     });
 
-
-
   }
 
   updateData(){
