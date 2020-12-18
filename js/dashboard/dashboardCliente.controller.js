@@ -3,21 +3,22 @@ class ordenesCliente {
     entity = 'orders';
     pendingOrders;
     newListPendingOrders = [];
+    newListCreatedOrders = [];
 
     constructor() {
         setTimeout(() => {
             this.getOrderData();
-          }, 2000);
+            this.getOrderDataCreated();
+        }, 2000);
     }
 
     getOrderData() {
-        this.service.getData(`${this.entity}/userstate/5fc4492384afd02ab48d5029`).then((response) => {
+        this.service.getData(`${this.entity}/statepending/5fc4492384afd02ab48d5029`).then((response) => {
             this.pendingOrders = response.newData;
 
             for (const order of this.pendingOrders) {
                 const orderData = {
                     _id: order._id,
-                    name: order.user.name,
                     id: order.user.id,
                     state: order.state
                 };
@@ -28,6 +29,23 @@ class ordenesCliente {
         });
     }
 
+    getOrderDataCreated() {
+        this.service.getData(`${this.entity}/statecreated/5fc4492384afd02ab48d5029`).then((response) => {
+            this.pendingOrders = response.newData;
+
+            for (const order of this.pendingOrders) {
+                const orderData = {
+                    _id: order._id,
+                    id: order.user.id,
+                    state: order.state
+                };
+
+                this.newListCreatedOrders.push(orderData);
+            };
+            this.fillDataCreated();
+        });
+    }
+
     fillDataPending() {
         const bodyTable = $('#bodyTablePending');
         bodyTable.empty();
@@ -35,6 +53,30 @@ class ordenesCliente {
 
         for (let i = 0; i <  this.newListPendingOrders.length; i++) {
             const currentData =  this.newListPendingOrders[i];
+
+            let elementTable = '<tr> <td>';
+
+            for (const key in currentData) {
+                if (currentData.hasOwnProperty(key)) {
+                    let element = currentData[key];
+                    if (key === '_id') {
+                        element = i + 1;
+                    }
+
+                    elementTable += `${element}</td><td>`;
+                }
+            }
+            bodyTable.append(elementTable);
+        }
+    }
+
+    fillDataCreated() {
+        const bodyTable = $('#bodyTableCreated');
+        bodyTable.empty();
+
+
+        for (let i = 0; i <  this.newListCreatedOrders.length; i++) {
+            const currentData =  this.newListCreatedOrders[i];
 
             let elementTable = '<tr> <td>';
 
