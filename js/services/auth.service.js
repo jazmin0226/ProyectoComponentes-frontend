@@ -1,6 +1,7 @@
 class AuthService {
   request = $.ajax;
   #currentUserActive;
+  
 
   get userRole() {
     return Number(this.#currentUserActive.user.role.id);
@@ -8,6 +9,10 @@ class AuthService {
 
   get currentUserId(){
     return this.#currentUserActive.user._id;
+  }
+
+  get currentUserNormalId() {
+    return this.#currentUserActive.user.id;
   }
 
   validateUserActive() {
