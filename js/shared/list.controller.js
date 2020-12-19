@@ -5,7 +5,7 @@ class listController extends formController{
   loadingElement = $('#loading');
 
   clearTable(){
-    this.bodyTable.html('');
+    this.bodyTable[0].innerHTML  = "";
   }
 
   fillTable(arrayData, typeBtn, btnMsg) {

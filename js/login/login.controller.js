@@ -5,9 +5,9 @@ class login extends formController{
   login(){
     if (this.validateFormData()) {
       this.service.registerData(this.entity, this.getFormData()).then((response) => {
-        sessionStorage.setItem('user', response);
-        location.href = '/views/products/retrieve.view.html';
-        console.log(sessionStorage);
+        const loginData = JSON.stringify(response.data);
+        sessionStorage.setItem('user', loginData);
+        location.href = '/views/orders/retrieve.view.html'; //Dashboard
       });
     }
   }  

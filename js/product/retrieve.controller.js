@@ -4,7 +4,7 @@ class retrieveController extends listController{
   currentProducts;
   currentIndexProduct;
 
-  constructor (){
+  constructor() {
     super();
     this.fillData();
   }
