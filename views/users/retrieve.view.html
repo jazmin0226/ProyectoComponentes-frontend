@@ -14,19 +14,19 @@
 <body>
 
   <div class="d-flex" id="wrapper">
-    <!-- Sidebar -->
-    <div class="bg-dark" id="sidebar-wrapper">
-      <div class="sidebar-heading text-center"><img src="./../../assets/carro-de-la-compra (3).png" alt="logo" class="mt-3"> </div>
-      <div class="list-group list-group-flush mt-5">
-        <a href="#" class="list-group-item list-group-item-action">Dashboard</a>
-        <a href="#" class="list-group-item list-group-item-action" id="newOrder">Nuevo pedido</a>
-        <a href="#" class="list-group-item list-group-item-action">Mis pedidos</a>
-        <!-- <a href="#" class="list-group-item list-group-item-action bg-light">Overview</a>
-        <a href="#" class="list-group-item list-group-item-action bg-light">Events</a>
-        <a href="#" class="list-group-item list-group-item-action bg-light">Profile</a>
-        <a href="#" class="list-group-item list-group-item-action bg-light">Status</a> -->
-      </div>
+   <!-- Sidebar -->
+   <div class="bg-dark" id="sidebar-wrapper">
+    <div class="sidebar-heading text-center"><img src="./../../assets/carro-de-la-compra (3).png" alt="logo"
+        class="mt-3"> </div>
+    <div class="list-group list-group-flush mt-5">
+      <a href="#" class="list-group-item list-group-item-action">Dashboard</a>
+      <a href="/views/products/register.view.html" class="list-group-item list-group-item-action optionsMenu" data-user="1">Registrar producto</a>
+      <a href="/views/products/retrieve.view.html" class="list-group-item list-group-item-action optionsMenu" data-user="1">Lista de productos</a>
+      <a href="/views/orders/register.view.html" class="list-group-item list-group-item-action optionsMenu" data-user="1">Pedidos</a>
+      <a href="#" class="list-group-item list-group-item-action optionsMenu" data-user="2" id="newOrder">Nuevo pedido</a>
+      <a href="/views/orders/retrievebyuser.view.html" class="list-group-item list-group-item-action optionsMenu" data-user="2">Mis pedidos</a>
     </div>
+  </div>
     <!-- /#sidebar-wrapper -->
 
     <!-- Page Content -->

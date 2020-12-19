@@ -19,10 +19,10 @@ class AuthService {
 
     this.#currentUserActive = JSON.parse(user);
 
-    this.validateViews();
+    this.validateOptions(); //Valida las opciones del Menú
   }
 
-  validateViews() {
+  validateOptions() {
     const options = $('.optionsMenu');
     
     for (const option of options) {
