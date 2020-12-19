@@ -46,10 +46,6 @@ class retrieveController extends listController {
     }
   }
 
-  removeButtons() {
-
-  }
-
   showModal(elementId){
     const index = Number(elementId);
     const currentOrder = this.currentOrders[index];

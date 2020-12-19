@@ -17,7 +17,7 @@ class ordenesCliente {
     }
 
     getOrderData() {
-        this.service.getData(`${this.entity}/statepending/5fc4492384afd02ab48d5029`).then((response) => {
+        this.service.getData(`${this.entity}/statepending/${authService.currentUserId}`).then((response) => {
             this.ordersData = response.newData;
 
             for (const order of this.ordersData) {
@@ -34,7 +34,7 @@ class ordenesCliente {
     }
 
     getOrderDataCreated() {
-        this.service.getData(`${this.entity}/statecreated/5fc4492384afd02ab48d5029`).then((response) => {
+        this.service.getData(`${this.entity}/statecreated/${authService.currentUserId}`).then((response) => {
             this.ordersData = response.newData;
 
             for (const order of this.ordersData) {
@@ -51,7 +51,7 @@ class ordenesCliente {
     }
 
     getOrderDataSent() {
-        this.service.getData(`${this.entity}/statesent/5fc4492384afd02ab48d5029`).then((response) => {
+        this.service.getData(`${this.entity}/statesent/${authService.currentUserId}`).then((response) => {
             this.ordersData = response.newData;
 
             for (const order of this.ordersData) {
@@ -69,7 +69,7 @@ class ordenesCliente {
 
 
     getOrderDataDelivered() {
-        this.service.getData(`${this.entity}/statedelivered/5fc4492384afd02ab48d5029`).then((response) => {
+        this.service.getData(`${this.entity}/statedelivered/${authService.currentUserId}`).then((response) => {
             this.ordersData = response.newData;
 
             for (const order of this.ordersData) {

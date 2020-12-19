@@ -7,7 +7,7 @@ class login extends formController{
       this.service.registerData(this.entity, this.getFormData()).then((response) => {
         const loginData = JSON.stringify(response.data);
         sessionStorage.setItem('user', loginData);
-        location.href = '/views/orders/retrieve.view.html'; //Dashboard
+        location.href = '/views/users/admin-dashboard.html'; //Dashboard
       });
     }
   }  
