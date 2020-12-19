@@ -5,11 +5,14 @@ class ordenesAdmin {
     ordersData;
     newListPendingOrders = [];
     newListCreatedOrders = [];
+    newListSentOrders = [];
 
     constructor(){
         setTimeout (()=>{
             this.getPendingData();
             this.getCreatedData();
+            this.getSentData();
+            this.getSe
         }, 2000);
 
     }
@@ -115,7 +118,7 @@ class ordenesAdmin {
         }
     }
 
-    getCreatedSent(){
+    getSentData(){
 
         this.service.getData(`${this.entity}/all/sent`).then((response) => {
             this.ordersData = response.newData;
@@ -134,20 +137,20 @@ class ordenesAdmin {
                 this.newListSentOrders.push(orderData);
                 
             };
-            this.fillDataCreated();
+            this.fillDataSent();
            
 
         });
 
     }
 
-    fillDataCreated() {
-        const bodyTable = $('#bodyTableCreated');
+    fillDataSent() {
+        const bodyTable = $('#bodyTableSent');
         bodyTable.empty();
 
 
-        for (let i = 0; i <  this.newListCreatedOrders.length; i++) {
-            const currentData =  this.newListCreatedOrders[i];
+        for (let i = 0; i <  this.newListSentOrders.length; i++) {
+            const currentData =  this.newListSentOrders[i];
 
             let elementTable = '<tr> <td>';
 
