@@ -1,7 +1,7 @@
 class ordenesCliente {
     service = new service;
     entity = 'orders';
-    pendingOrders;
+    ordersData;
     newListPendingOrders = [];
     newListCreatedOrders = [];
     newListSentOrders = [];
@@ -18,9 +18,9 @@ class ordenesCliente {
 
     getOrderData() {
         this.service.getData(`${this.entity}/statepending/5fc4492384afd02ab48d5029`).then((response) => {
-            this.pendingOrders = response.newData;
+            this.ordersData = response.newData;
 
-            for (const order of this.pendingOrders) {
+            for (const order of this.ordersData) {
                 const orderData = {
                     _id: order._id,
                     id: order.user.id,
@@ -35,9 +35,9 @@ class ordenesCliente {
 
     getOrderDataCreated() {
         this.service.getData(`${this.entity}/statecreated/5fc4492384afd02ab48d5029`).then((response) => {
-            this.pendingOrders = response.newData;
+            this.ordersData = response.newData;
 
-            for (const order of this.pendingOrders) {
+            for (const order of this.ordersData) {
                 const orderData = {
                     _id: order._id,
                     id: order.user.id,
@@ -52,9 +52,9 @@ class ordenesCliente {
 
     getOrderDataSent() {
         this.service.getData(`${this.entity}/statesent/5fc4492384afd02ab48d5029`).then((response) => {
-            this.pendingOrders = response.newData;
+            this.ordersData = response.newData;
 
-            for (const order of this.pendingOrders) {
+            for (const order of this.ordersData) {
                 const orderData = {
                     _id: order._id,
                     id: order.user.id,
@@ -70,9 +70,9 @@ class ordenesCliente {
 
     getOrderDataDelivered() {
         this.service.getData(`${this.entity}/statedelivered/5fc4492384afd02ab48d5029`).then((response) => {
-            this.pendingOrders = response.newData;
+            this.ordersData = response.newData;
 
-            for (const order of this.pendingOrders) {
+            for (const order of this.ordersData) {
                 const orderData = {
                     _id: order._id,
                     id: order.user.id,
