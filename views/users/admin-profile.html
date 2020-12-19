@@ -65,14 +65,29 @@
             
         
             <div class="row">
-              <div class="col-12 m-2">
+              <div class="col-5  m-2">
+                <h3>Pedidos creados</h3>
+                <table class="table" id="tableCreated">
+                  <thead>
+                    <tr>
+                      <th scope="col">#</th>
+                      <th scope="col">Identificación </th>
+                      <th scope="col">Estado del pedido</th>
+                      
+                    </tr>
+                  </thead>
+                  <tbody id="bodyTableCreated">
+      
+                  </tbody>
+                </table>
+              </div>
+              <div class="col-5 m-2">
                 <h3>Pedidos pendientes</h3>
                 <table class="table" id="tablePending">
                   <thead>
                     <tr>
                       <th scope="col">#</th>
-                      <th scope="col">Identificación del cliente</th>
-                      <th scope="col">Nombre del cliente </th>
+                      <th scope="col">Identificación </th>
                       <th scope="col">Estado del pedido</th>
                     
                     </tr>
@@ -85,15 +100,14 @@
             </div>
 
             <div class="row">
-              <div class="col-12  m-2">
+              <div class="col-5 m-2">
                 <h3>Pedidos enviados</h3>
                 <table class="table" id="tableSent">
                   <thead>
                     <tr>
-                        <th scope="col">#</th>
-                        <th scope="col">Identificación del cliente</th>
-                        <th scope="col">Nombre del cliente </th>
-                        <th scope="col">Estado del pedido</th>
+                      <th scope="col">#</th>
+                      <th scope="col">Identificación </th>
+                      <th scope="col">Estado del pedido</th>
                     
                     </tr>
                   </thead>
@@ -102,15 +116,14 @@
                   </tbody>
                 </table>
               </div>
-              <div class="col-12 m-2">
+              <div class="col-5 m-2">
                 <h3>Pedidos entregados</h3>
                 <table class="table" id="tableDelivered">
                   <thead>
                     <tr>
-                        <th scope="col">#</th>
-                        <th scope="col">Identificación del cliente</th>
-                        <th scope="col">Nombre del cliente </th>
-                        <th scope="col">Estado del pedido</th>
+                      <th scope="col">#</th>
+                      <th scope="col">Identificación </th>
+                      <th scope="col">Estado del pedido</th>
                     </tr>
                   </thead>
                   <tbody id="bodyTableDelivered">
@@ -136,7 +149,7 @@
   <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
   <script src="./../../vendor/bootstrap/js/bootstrap.min.js"></script>
   <script src="./../../js/service.js"></script>
-  <script src="./../../js/dashboard/dashboardAdmin.controller.js"></script>
+  
 
 </body>
 
