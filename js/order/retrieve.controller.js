@@ -23,8 +23,8 @@ class retrieveController extends listController {
         const orderData = {
           _id: order._id,
           name: order.user.name,
-          address: order.user.address,
           id: order.user.id,
+          address: order.user.address,
           state: order.state
         };
 
@@ -46,13 +46,18 @@ class retrieveController extends listController {
     }
   }
 
+  removeButtons() {
+
+  }
+
   showModal(elementId){
     const index = Number(elementId);
     const currentOrder = this.currentOrders[index];
-    this.currentOrderId = currentOrder._id;
-    this.currenteOrderState = currentOrder.state;
     const products = currentOrder.products;
     const newProductsList = [];
+    
+    this.currentOrderId = currentOrder._id;
+    this.currenteOrderState = currentOrder.state;
 
     for (const product of products) {
       const productData = {
@@ -65,7 +70,11 @@ class retrieveController extends listController {
 
       newProductsList.push(productData);
     }
-      
+
+    if(this.currenteOrderState === "Entregado"){
+      $('#send').hide();
+    }
+    
     this.fillModalTable(newProductsList);
   }
 
@@ -118,4 +127,8 @@ const controller = new retrieveController();
 
 $(controller.modalBtn).on('click', () => {
   controller.changeState();
+});
+
+$('#modalId').on('hidden.bs.modal', () => {
+  $('#send').show();
 });

@@ -15,7 +15,7 @@ class retrieveByUser extends listController {
     }, 2000);
   }
 
-  get currentOrder(){
+  get currentOrder() {
     return this.currentOrders[this.productIndex];
   }
 
@@ -35,7 +35,7 @@ class retrieveByUser extends listController {
     }
     return productList;
   }
-  
+
 
   clearProductIndex() {
     this.productIndex = -1;
@@ -62,10 +62,10 @@ class retrieveByUser extends listController {
       this.btnMore();
       this.hideLoading();
 
-      if(this.productIndex !== -1){
+      if (this.productIndex !== -1) {
         this.fillModalTable();
         this.activeButtons();
-      } 
+      }
     });
   }
 
@@ -82,9 +82,14 @@ class retrieveByUser extends listController {
   showModal() {
     this.currentOrderId = this.currentOrder._id;
     this.currenteOrderState = this.currentOrder.state;
-    
+
+
     this.fillModalTable();
     this.updateOrder();
+
+    if (this.productsList.length === 0) {
+      $('#btnSend').hide();
+    }
   }
 
   validateState() {
@@ -129,7 +134,7 @@ class retrieveByUser extends listController {
 
     $('#btnUpdate').attr('disable', true);
     $('#btnSend').attr('disable', true);
-    
+
     Promise.all(promises).then((response) => {
       $('#modalId').modal('hide');
       this.fillData();
@@ -165,9 +170,9 @@ class retrieveByUser extends listController {
       elementTable += `${button}</td></tr>`;
       bodyTable.append(elementTable);
     }
-    
+
     this.addDeleteEvent();
-    
+
   }
 
   addDeleteEvent() {
@@ -187,7 +192,10 @@ class retrieveByUser extends listController {
     this.disableButtons();
     this.service.deleteData(`${this.entity}/delete/${this.currentOrderId}`, body).then((response) => {
       this.fillData();
-      
+
+      if (this.productsList.length === 0) {
+        $('#btnSend').hide();
+      }
     });
   }
 
@@ -197,7 +205,7 @@ class retrieveByUser extends listController {
     $('#btnSend').attr('disabled', true);
   }
 
-  activeButtons(){
+  activeButtons() {
     $('#btnUpdate').removeAttr('disabled');
     $('#btnSend').removeAttr('disabled');
   }
@@ -208,6 +216,8 @@ class retrieveByUser extends listController {
     $('#btnSend').remove();
   }
 
+
+
 }
 
 const controller = new retrieveByUser();
@@ -215,4 +225,5 @@ const controller = new retrieveByUser();
 $('#modalId').on('hidden.bs.modal', () => {
   controller.removeButtons();
   controller.clearProductIndex();
+  $('#btnSend').show();
 });
