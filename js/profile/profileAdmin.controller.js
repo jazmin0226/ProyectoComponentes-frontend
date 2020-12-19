@@ -1,16 +1,12 @@
 class ordenesAdmin {
 
     service = new service;
-    entity= 'orders';
-    ordersData;
-    newListPendingOrders = [];
-    newListSentOrders = [];
-    newListDeliveredOrders = [];
-    
+    entity= 'users';
 
     constructor(){
         setTimeout (()=>{
             this.getPendingData();
+            this.getCreatedData();
             this.getSentData();
             this.getDeliveredData();
         }, 2000);
@@ -50,6 +46,57 @@ class ordenesAdmin {
 
         for (let i = 0; i <  this.newListPendingOrders.length; i++) {
             const currentData =  this.newListPendingOrders[i];
+
+            let elementTable = '<tr> <td>';
+
+            for (const key in currentData) {
+                if (currentData.hasOwnProperty(key)) {
+                    let element = currentData[key];
+                    if (key === '_id') {
+                        element = i + 1;
+                    }
+
+                    elementTable += `${element}</td><td>`;
+                }
+            }
+            bodyTable.append(elementTable);
+        }
+    }
+
+    
+    getCreatedData(){
+
+        this.service.getData(`${this.entity}/all/created`).then((response) => {
+            this.ordersData = response.newData;
+
+            
+            
+
+            for (const order of this.ordersData) {
+                const orderData = {
+                    _id: order._id,
+                    id: order.user.id,
+                    name: order.user.name,
+                    state: order.state
+                };
+
+                this.newListCreatedOrders.push(orderData);
+                
+            };
+            this.fillDataCreated();
+           
+
+        });
+
+    }
+
+    fillDataCreated() {
+        const bodyTable = $('#bodyTableCreated');
+        bodyTable.empty();
+
+
+        for (let i = 0; i <  this.newListCreatedOrders.length; i++) {
+            const currentData =  this.newListCreatedOrders[i];
 
             let elementTable = '<tr> <td>';
 
