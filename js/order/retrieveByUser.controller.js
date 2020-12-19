@@ -193,9 +193,9 @@ class retrieveByUser extends listController {
     this.service.deleteData(`${this.entity}/delete/${this.currentOrderId}`, body).then((response) => {
       this.fillData();
 
-      if (this.productsList.length === 0) {
-        $('#btnSend').hide();
-      }
+      // if (this.productsList.length === 0) {
+      //   $('#btnSend').hide();
+      // }
     });
   }
 
